@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react';
+import socketIOClient from "socket.io-client";
 
 function App() {
   const [messageList, setMessageList] = useState([])
@@ -9,6 +10,11 @@ function App() {
   const handleSubmit = e => {
     e.preventDefault()
   }
+
+  useEffect(() => {
+    const socket = socketIOClient('http://localhost:3000');
+    setSocket(socket);
+  }, [])
 
   return (
     <div className="App">
