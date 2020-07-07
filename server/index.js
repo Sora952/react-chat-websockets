@@ -21,6 +21,15 @@ io.on('connect', (socket) => {
       console.log('user disconnected');
     });
     socket.emit('initialMessageList', messages);
+
+    // Receiving message from client
+    socket.on('newMessageFromClient', (messageTextAndAuthor) => {
+        const newMessage = {id: uniqid(), ...messageTextAndAuthor}
+        console.log('new message from a client: ', newMessage)
+        messages.push(newMessage);
+        // Sending to all clients
+        io.emit('message from server', newMessage);
+      })
   });
 
 

@@ -8,7 +8,13 @@ function App() {
   const [socket, setSocket] = useState(null)
 
   const handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
+
+    socket.emit('newMessageFromClient', {
+      text: newMessageText, 
+      author: nickName
+    })
+    
   }
 
   useEffect(() => {
@@ -17,6 +23,10 @@ function App() {
 
     socket.on('initialMessageList', (messages) => {
       setMessageList(messages);
+    });
+
+    socket.on('message from server', (newMessage) => {
+      setMessageList((messageList) => [...messageList, newMessage]);
     });
   }, [])
 
