@@ -14,6 +14,10 @@ function App() {
   useEffect(() => {
     const socket = socketIOClient('http://localhost:3000');
     setSocket(socket);
+
+    socket.on('initialMessageList', (messages) => {
+      setMessageList(messages);
+    });
   }, [])
 
   return (

@@ -20,4 +20,8 @@ io.on('connect', (socket) => {
     socket.on('disconnect', () => {
       console.log('user disconnected');
     });
+    socket.emit('initialMessageList', messages);
   });
+
+
+  
